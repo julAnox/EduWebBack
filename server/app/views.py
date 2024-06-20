@@ -4,8 +4,8 @@ from django.http import JsonResponse
 from django.conf import settings
 from rest_framework import generics
 from rest_framework.views import APIView
-from app.models import Teacher, Post
-from app.serializers import TeacherSerializer, PostSerializer
+from app.models import Teacher, Post, User
+from app.serializers import TeacherSerializer, PostSerializer, UserSerializer
 
 
 class GroupsLessonsView(APIView):
@@ -42,3 +42,11 @@ class PostsList(generics.ListAPIView):
 
     def get_queryset(self):
         return Post.objects.all().order_by('date_posted')
+
+
+class UsersList(generics.ListCreateAPIView):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+    # def get_queryset(self):
+    #     return Teacher.objects.all().order_by('name')

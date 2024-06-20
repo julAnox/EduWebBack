@@ -13,3 +13,10 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
     date_posted = models.DateTimeField(auto_now_add=True)
+
+
+class User(models.Model):
+    name = models.CharField(max_length=100)
+    img_path = models.ImageField(upload_to='users/')
+    password = models.CharField(max_length=100)
+    bio = models.TextField()
