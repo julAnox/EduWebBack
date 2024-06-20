@@ -6,7 +6,9 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from app.models import Teacher, Post, User
 from app.serializers import TeacherSerializer, PostSerializer, UserSerializer
-
+from rest_framework import generics, status
+from rest_framework.response import Response
+from django.contrib.auth.models import User
 
 class GroupsLessonsView(APIView):
     def get(self, request):
@@ -48,5 +50,9 @@ class UsersList(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
-    # def get_queryset(self):
-    #     return Teacher.objects.all().order_by('name')
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
