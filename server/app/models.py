@@ -16,7 +16,12 @@ class Post(models.Model):
 
 
 class User(models.Model):
-    name = models.CharField(max_length=100)
     img_path = models.ImageField(upload_to='users/')
+    email = models.EmailField(unique=True)
     password = models.CharField(max_length=100)
-    bio = models.TextField()
+    name = models.CharField(max_length=100)
+    surname = models.CharField(max_length=100)
+    father_name = models.CharField(max_length=100)
+    collage_institution = models.CharField(max_length=100)
+    group = models.CharField(max_length=100)
+
